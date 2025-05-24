@@ -51,7 +51,7 @@ The project combines several key components to deliver its functionality:
 - Maintains a **conversation history** to provide context-aware responses.  
 - Supports multiple user queries in a session, allowing for follow-up questions and clarifications.
 
-### 5. Voice Input and Transcription
+### 5. (Optional) Voice Input and Transcription
 
 - Can be extended to handle **voice inputs** by integrating a speech-to-text engine that transcribes Moroccan Darija audio into text before processing.  
 - Enables more natural, accessible interaction for users preferring spoken communication.
