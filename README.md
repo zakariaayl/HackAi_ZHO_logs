@@ -1,28 +1,71 @@
-# Moroccan Darija Administrative Documents Search Assistant
+## Project Idea
 
-## Problem Statement
+This project is a **conversational AI assistant** designed to help Moroccan users easily access information about administrative documents and procedures in their own language, **Moroccan Darija**.
 
-In Morocco, the public sector is undergoing rapid modernization and digital transformation aimed at simplifying bureaucracy and improving administrative services. However, despite these efforts, **many citizens—especially those less familiar with technology or official procedures—face significant challenges in accessing clear, reliable information about required administrative documents and procedures**.
+### Why This Idea?
 
-This lack of accessible information is a major obstacle, particularly for individuals who:
+In Morocco, many people struggle to find clear and accessible information about government paperwork — such as what documents are needed for a passport, ID card, or other official procedures. This problem is especially challenging for those who:
 
-- Are not fluent in formal Arabic or French and prefer Moroccan Darija (the local spoken dialect).  
-- Lack digital literacy or easy access to official online resources.  
-- Need quick, understandable guidance on how to complete bureaucratic processes (e.g., obtaining passports, ID cards, permits).  
+- Prefer to communicate in Moroccan Darija rather than formal Arabic or French,  
+- Have limited experience using digital platforms, or  
+- Face difficulties navigating complex official websites and bureaucracy.
 
-The digitalization of administrative services has great potential to reduce delays, enhance transparency, and improve citizen satisfaction. Yet, the **information gap**—especially regarding document requirements and procedural steps—remains a key barrier to fully leveraging these modern tools.
+### What Does the Project Do?
 
-## Project Motivation
+- The assistant accepts **user questions in Moroccan Darija via text or voice input**.  
+- It includes **transcription capabilities** that convert voice inputs in Moroccan Darija into text.  
+- It uses a powerful language model (Google’s Gemini model) combined with a web search tool that fetches current, relevant information from Moroccan websites using SerpAPI.  
+- It processes and summarizes search results to provide clear, concise answers that are easy to understand.  
+- It maintains conversation history to offer context-aware responses, supporting follow-up questions and clarifications.
 
-This project aims to bridge that gap by providing a **conversational AI assistant** that:
+### Benefits
 
-- Understands queries in Moroccan Darija, the everyday language of most Moroccans.  
-- Accesses up-to-date information via web searches restricted to Moroccan sources and relevant content.  
-- Presents clear, concise, and context-aware responses about administrative documents and procedures.  
-- Supports users who may have limited digital skills by maintaining an interactive and easy-to-use chat interface.
+- Helps bridge the information gap by making administrative knowledge accessible to a wider audience, including those who prefer speaking over typing.  
+- Supports Morocco’s ongoing efforts to modernize and digitalize public administration by improving citizen access to information.  
+- Reduces confusion and the risk of errors in bureaucratic processes, potentially saving time and effort for individuals.  
+- Provides a user-friendly tool that leverages AI, speech-to-text technology, and web search tailored specifically for Moroccan users.
 
-By focusing on Moroccan Darija and integrating real-time web search, the assistant helps democratize access to administrative information, making the benefits of public sector digitalization tangible to a broader segment of the population.
+
+## Code Overview
+
+The project combines several key components to deliver its functionality:
+
+### 1. Language Model Integration
+
+- Uses **Google’s Gemini model** via the `smolagents` library (`OpenAIServerModel`) to process and generate natural language responses.  
+- The model understands Moroccan Darija and manages the conversational flow.
+
+### 2. Custom Search Tool (`SearchWebTool`)
+
+- A custom tool built as a subclass of `Tool` that performs live web searches using **SerpAPI**.  
+- Searches are restricted to Moroccan websites and Arabic language results to ensure relevant, local information.  
+- Retrieves and summarizes the top search results to feed back to the user.
+
+### 3. Agent (`ToolCallingAgent`)
+
+- Manages interactions between the language model and the search tool.  
+- Receives user inputs, decides when to call the search tool, and composes final responses based on model outputs and web search data.
+
+### 4. Chat Interface and History
+
+- Maintains a **conversation history** to provide context-aware responses.  
+- Supports multiple user queries in a session, allowing for follow-up questions and clarifications.
+
+### 5. Voice Input and Transcription
+
+- Can be extended to handle **voice inputs** by integrating a speech-to-text engine that transcribes Moroccan Darija audio into text before processing.  
+- Enables more natural, accessible interaction for users preferring spoken communication.
 
 ---
 
-*The assistant contributes to Morocco’s ongoing efforts to modernize bureaucracy, empowering individuals with knowledge and reducing the traditional complexity surrounding public administration.*
+### How to Extend or Modify
+
+- To add new tools, create subclasses of `Tool` and register them in the `ToolCallingAgent`.  
+- Customize the model parameters or switch models by modifying the `OpenAIServerModel` initialization.  
+- Implement front-end interfaces (web, mobile) that connect to this backend chat agent for user interaction.
+
+
+
+---
+
+This project empowers Moroccan citizens by giving them an intelligent assistant that understands their spoken language and connects them to vital bureaucratic information — simplifying their interactions with government services in the digital age.
