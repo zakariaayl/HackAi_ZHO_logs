@@ -1,8 +1,8 @@
-## Project Idea
+## 🧠 Project Idea
 
 This project is a **conversational AI assistant** designed to help Moroccan users easily access information about administrative documents and procedures in their own language, **Moroccan Darija**.
 
-### Why This Idea?
+### ❓ Why This Idea?
 
 In Morocco, many people struggle to find clear and accessible information about government paperwork — such as what documents are needed for a passport, ID card, or other official procedures. This problem is especially challenging for those who:
 
@@ -10,7 +10,7 @@ In Morocco, many people struggle to find clear and accessible information about 
 - Have limited experience using digital platforms, or  
 - Face difficulties navigating complex official websites and bureaucracy.
 
-### What Does the Project Do?
+### ✅ What Does the Project Do?
 
 - The assistant accepts **user questions in Moroccan Darija via text or voice input**.  
 - It includes **transcription capabilities** that convert voice inputs in Moroccan Darija into text.  
