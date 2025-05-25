@@ -18,6 +18,35 @@ In Morocco, many people struggle to find clear and accessible information about 
 - It processes and summarizes search results to provide clear, concise answers that are easy to understand.  
 - It maintains conversation history to offer context-aware responses, supporting follow-up questions and clarifications.
 
+
+### How It Works (Flowchart Description)
+
+![Project Flowchart](flowchart.png "Flowchart of the project process")
+
+
+User Input:
+The user submits a question or voice input in Moroccan Darija.
+
+Voice Transcription (optional):
+If the input is voice, it is transcribed into text.
+
+Query Processing:
+The text input is sent to the language model agent.
+
+Search Tool Invocation:
+The agent checks if a web search is necessary and uses the custom SearchWebTool to query relevant Moroccan websites through SerpAPI.
+
+Information Retrieval:
+The search tool fetches and summarizes relevant documents and procedures.
+
+Response Generation:
+The language model composes a clear and context-aware response based on search results and conversation history.
+
+User Output:
+The user receives the answer in Moroccan Darija text, either displayed or read aloud.
+
+
+
 ### Benefits
 
 - Helps bridge the information gap by making administrative knowledge accessible to a wider audience, including those who prefer speaking over typing.  
