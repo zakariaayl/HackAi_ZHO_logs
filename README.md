@@ -21,7 +21,7 @@ In Morocco, many people struggle to find clear and accessible information about 
 
 ### How It Works (Flowchart Description)
 
-![Project Flowchart](flowchart.png "Flowchart of the project process")
+![Project Flowchart](flowchar-lmm9dem.png "Flowchart of the project process")
 
 
 User Input:
