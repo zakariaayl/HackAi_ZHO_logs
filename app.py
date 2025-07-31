@@ -17,8 +17,8 @@ from smolagents import OpenAIServerModel, ToolCallingAgent, Tool
 #     import streamlit.watcher.local_sources_watcher
 #     def patched_get_module_paths(module):
 #         try:
-#             if hasattr(module, '__path__'):
-#                 return list(module.__path__)
+#             if hasattr(module, '_path_'):
+#                 return list(module._path_)
 #             return []
 #         except Exception:
 #             return []
@@ -31,7 +31,7 @@ try:
     model_ai = OpenAIServerModel(
         model_id="gemini-2.0-flash",
         api_base="https://generativelanguage.googleapis.com/v1beta",
-        api_key="AIzaSyCQBFGBRT73g-dh0WNO5SfitmxxCOIQKdU"
+        api_key="AIzaSyAGzTxntsUg-C2Mu1tCIDNqgT1Q1loxo64"
     )
 except Exception as e:
     st.error(f"Erreur initialisation modèle Gemini: {e}")
@@ -109,40 +109,63 @@ def get_ai_response(message, model_type="gemini-2.0-flash"):
 
 def main():
     init_session()
-    st.title("🤖 مقدم  ML")
+
+    # 🔧 CSS Style
+    st.markdown("""
+        <style>
+        .message-user {
+            background-color: #690273;
+            padding: 12px;
+            border-radius: 12px;
+            margin-bottom: 10px;
+            text-align: right;
+            font-family: 'Segoe UI', sans-serif;
+            direction: rtl;
+        }
+        .message-ai {
+            background-color: #060270;
+            padding: 12px;
+            border-radius: 12px;
+            margin-bottom: 10px;
+            text-align: left;
+            font-family: 'Courier New', monospace;
+        }
+        .timestamp {
+            font-size: 0.8em;
+            color: gray;
+            margin-bottom: 4px;
+        }
+        </style>
+    """, unsafe_allow_html=True)
+
+    st.title("🤖 مقدم ML")
     st.markdown("---")
 
+    # 🛠 Barre latérale
     with st.sidebar:
-        st.header("⚙️ Configuration")
-        model_choice = st.selectbox("Modèle IA:",["مقدم ML","الباشا"], index=3)
-        # st.subheader("🔊 Audio")
-        # st.checkbox("Sortie audio", value=True, key='audio_enabled')
-        # st.checkbox("Entrée audio", value=False, key='recording')
-        if st.button("🗑️ Effacer l'historique"):
+        st.header("⚙ Configuration")
+        model_choice = st.selectbox("Modèle IA:", ["مقدم ML", "الباشا"], index=0)
+        if st.button("🗑 Effacer l'historique"):
             st.session_state.conversation = []
             st.rerun()
 
+    # 💬 Affichage des messages
     col1, col2 = st.columns([3, 1])
     with col1:
         st.subheader("💬 Conversation")
         for i, (role, message, timestamp) in enumerate(st.session_state.conversation):
-            st.markdown(f"**{'Vous' if role == 'user' else 'LM مق'}** ({timestamp}):")
-            st.markdown(message if role == "ai" else f"*{message}*")
-            # if role == "ai" and st.session_state.audio_enabled:
-            #     if st.button(f"🔊 Écouter", key=f"audio_{i}"):
-            #         audio_file = text_to_speech(message)
-            #         if audio_file:
-            #             audio_bytes = get_audio_bytes(audio_file)
-            #             st.markdown(f"""
-            #             <audio controls autoplay>
-            #                 <source src="data:audio/wav;base64,{audio_bytes}" type="audio/wav">
-            #             </audio>
-            #             """, unsafe_allow_html=True)
-            #             os.unlink(audio_file)
-            st.markdown("---")
+            role_class = "message-user" if role == "user" else "message-ai"
+            name = "🧑‍💻 أنت" if role == "user" else "🤖 LM مقدم"
+            html = f'''
+            <div class="{role_class}">
+                <div class="timestamp">{name} • {timestamp}</div>
+                {message}
+            </div>
+            '''
+            st.markdown(html,unsafe_allow_html=True)
 
+    # 📊 Stats
     with col2:
-        st.subheader("📊 Statistiques")
         st.metric("Messages", len(st.session_state.conversation))
         st.metric("Modèle actuel", model_choice)
         if st.button("📥 Exporter"):
@@ -150,7 +173,7 @@ def main():
             st.download_button("Télécharger JSON", data=json_data, file_name="conversation.json", mime="application/json")
 
     st.markdown("---")
-    st.subheader("✍️ Votre message")
+    st.subheader("✍ Votre message")
     input_method = st.radio("Méthode de saisie:", ["Texte"], horizontal=True, key="input_mode")
 
     if st.session_state.input_mode == "Texte":
@@ -162,16 +185,13 @@ def main():
                 ai_response = get_ai_response(user_input, model_choice)
                 st.session_state.conversation.append(("ai", ai_response, timestamp))
             st.rerun()
-    # else:
-    #     st.info("🎤 Enregistrement audio activé (implémentation JS requise pour navigateur)")
-    #     st.warning("Fonction audio à activer manuellement dans la version web.")
 
-    with st.expander("ℹ️ Informations sur lM مقدم"):
+    with st.expander("ℹ Informations sur LM مقدم"):
         st.markdown("""
         ### Fonctionnalités:
-        - Chat en darija marocaine
-        - Recherche web (via SerpAPI)
-        - Export conversation
+        - الدردشة بالدارجة المغربية
+        - البحث فالويب
+        - تقديم توجيه لقضاء المهام الادارية
         """)
 
 if __name__ == "__main__":
